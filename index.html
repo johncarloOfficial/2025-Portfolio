@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JC Sanchez-portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="..\2025\photos\favicon.png">
+
+    <style>
+        /* ===== GLOBAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            background: #171717;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: Poppins;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        span {
+            background: linear-gradient(to top, #71BAFF, #0069CA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 24px 10%;
+        }
+
+            .navbar nav a {
+                margin-left: 24px;
+                color: #aaa;
+            }
+            
+            .navbar nav a:hover {
+                margin-left: 24px;
+                color: white;
+            }
+
+        
+        /* HERO */
+        .hero {
+            padding: 120px 10% 80px;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: Poppins;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px,4vw,48px);
+            max-width: 900px;
+            margin: 0 auto 32px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 14px 30px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+            .btn.primary {
+                background: radial-gradient(circle at top,#48A7FF,#005CB3);
+                color: #fff;
+                box-shadow: 0 8px 30px rgba(72,167,255,0.35);
+            }
+
+                .btn.primary:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 12px 40px rgba(72,167,255,0.6);
+                }
+
+            .btn.secondary {
+                background: transparent;
+                border: 1px solid #444;
+                color: #fff;
+            }
+
+                .btn.secondary:hover {
+                    border-color: #48A7FF;
+                    color: #48A7FF;
+                }
+
+        /* SECTIONS */
+        section {
+            padding: 100px 10%;
+        }
+
+        .featured-grid, .cards, .about-grid, .social-grid, .skills-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .featured-grid {
+            grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+        }
+
+        .cards {
+            grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+            margin-top: 40px;
+        }
+
+        .card, .small-card {
+            background: #1f1f1f;
+            padding: 20px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+            .card img, .small-card img {
+                width: 100%;
+                height: 393px;
+                object-fit: cover;
+                border-radius: 12px;
+                display: block;
+            }
+
+            .small-card img {
+                height: 180px;
+            }
+
+            .small-card:hover {
+                box-shadow: 0 12px 40px rgba(72,167,255,0.7);
+            }
+
+        /* ABOUT */
+        .about-grid {
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: #1f1f1f;
+        }
+
+        /* SOCIAL */
+        .social-grid {
+            grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+            margin-top: 32px;
+        }
+
+            .social-grid div {
+                height: 140px;
+                background: #1f1f1f;
+                border-radius: 14px;
+            }
+
+        /* SKILLS */
+        .skills-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: #bbb;
+        }
+
+        /* REVEAL ANIMATION */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        /* PORTFOLIO */
+        .portfolio-images-full {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2px;
+        }
+
+            .portfolio-images-full .bottom-full {
+                grid-column: 1/3;
+                grid-row: 2/3;
+            }
+
+            .portfolio-images-full div {
+                overflow: hidden;
+            }
+
+            .portfolio-images-full img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                cursor: pointer;
+            }
+
+        .portfolio-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .portfolio-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .portfolio-main-card {
+            background: #2c2c2c;
+            border-radius: 14px;
+            padding: 24px;
+            width: 100%;
+        }
+
+            .portfolio-main-card h3 {
+                font-weight: 700;
+                font-size: 1.8rem;
+                margin-bottom: 0.2em;
+            }
+
+            .portfolio-main-card p {
+                font-size: 0.9rem;
+                margin-bottom: 1em;
+                color: #ccc;
+            }
+
+        .portfolio-links a {
+            color: #48a7ff;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+        }
+
+            .portfolio-links a:hover {
+                text-decoration: underline;
+            }
+
+        .portfolio-description {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            max-width: 350px;
+            color: #bbb;
+        }
+
+        .portfolio-right {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .skills-wrapper {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .skills-card {
+            border: 1px solid #2a2f36;
+            border-radius: 16px;
+            padding: 24px;
+            background: none;
+        }
+
+            .skills-card h2 {
+                text-align: center;
+                margin-bottom: 24px;
+            }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .skills-item span {
+            opacity: 0.7;
+        }
+
+        .graphics-card {
+            grid-column: 2;
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(23,23,23,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+            .modal.show {
+                visibility: visible;
+                opacity: 1;
+            }
+
+        .modal-content {
+            background: #222;
+            border-radius: 16px;
+            color: white;
+            max-width: 900px;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .modal-left {
+            display: flex;
+            flex: 1;
+        }
+
+        .modal-inner {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+            .modal-gallery img {
+                width: 70px;
+                height: 70px;
+                object-fit: cover;
+                cursor: pointer;
+                border-radius: 8px;
+                border: 2px solid transparent;
+            }
+
+                .modal-gallery img.active {
+                    border-color: #48A7FF;
+                }
+
+        .modal-main {
+            flex: 1;
+        }
+
+            .modal-main img {
+                width: auto;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 12px;
+            }
+
+        .modal-right {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 10px;
+        }
+
+        .modal-tools span {
+            text-decoration: underline;
+            color: white;
+            text-align: left;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+            font-size: 0.8rem;
+        }
+
+        .modal-visit-site {
+            display: inline-block;
+            margin-top: 10px;
+            background: radial-gradient(circle at top,#48A7FF,#005CB3);
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 8px 30px rgba(72,167,255,0.35)
+        }
+
+            .modal-visit-site:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 40px rgba(72,167,255,0.6);
+            }
+
+        footer {
+            background: #151a1f;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            height: 170px;
+        }
+
+
+
+        /* RESPONSIVE */
+        @media (max-width:900px) {
+            .portfolio-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-left {
+                align-items: center;
+                text-align: center;
+            }
+
+            .portfolio-main-card h3, .portfolio-main-card p, .portfolio-links a {
+                text-align: center;
+            }
+
+            .portfolio-description {
+                max-width: 100%;
+            }
+
+            .portfolio-images-full {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(3,1fr);
+            }
+
+            .portfolio-right {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+            }
+
+            .small-card {
+                width: 45%;
+            }
+
+            .modal-content {
+                flex-direction: column;
+            }
+
+            .modal-inner {
+                flex-direction: column;
+            }
+
+            .modal-gallery {
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .modal-main img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .skills-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 24px;
+                width: 100%;
+            }
+
+            .skills-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                row-gap: 20px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                align-items: center;
+            }
+
+            .portfolio-right {
+                flex-direction: column;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .small-card, .skills-card {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                padding: 15px 5%;
+            }
+
+            .logo{
+                width: 15%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar reveal">
+        <strong class="logo"><img src="..\2025\photos\logo.png" alt="Alternate Text" /></strong>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#works">Works</a>
+            <a href="#experience">Experience</a>
+        </nav>
+    </header>
+
+    <section class="hero reveal" id="home">
+        <h1>
+            Through detailed visual design and prototyping,
+            I translate ideas into <span>intuitive and engaging interfaces</span>
+        </h1>
+        <h3 style="font-weight: 100;">
+            I craft designs and prototypes that address real user needs,
+            turning challenges into practical, user-centered solutions.
+        </h3>
+        <div class="hero-actions">
+            <br />
+            <button class="btn primary">View Work</button>
+            <button class="btn secondary">Contact</button>
+        </div>
+    </section>
+
+    <section class="featured reveal">
+        <div class="portfolio-images-full">
+            <div class="top-left"><img src="..\2025\photos\img-1.png" alt="Top Left"></div>
+            <div class="top-right"><img src="..\2025\photos\img-2.png" alt="Top Right"></div>
+            <div class="bottom-full"><img src="..\2025\photos\img-3.png" alt="Bottom Full"></div>
+        </div>
+    </section>
+
+    <section class="conversion reveal">
+        <h1>How Can Visual Design <span>Boost Conversions?</span></h1>
+        <div class="cards">
+            <div class="card"><img src="..\2025\photos\img-4.png" alt="Card Image"><br/>A well-designed website makes it easy for visitors to navigate, find information, and take action, increasing customer satisfaction and retention.</div>
+            <div class="card"><img src="..\2025\photos\img-5.png" alt="Card Image"><br/>Professional, consistent design reflects a business’s reliability, making users more likely to trust and choose its products or services.</div>
+            <div class="card"><img src="..\2025\photos\img-6.png" alt="Card Image"><br/>Effective web design guides users toward desired actions (like purchases, sign-ups, or inquiries), directly impacting sales and business growth.</div>
+        </div>
+    </section>
+
+    <section class="about reveal" id="about">
+        <div class="about-grid">
+            <div class="avatar">
+                <img src="..\2025\photos\Avatar.png" alt="Card Image">
+            </div>
+            <div>
+                <h2>Hello I’m <span>Carlo</span></h2><br />
+                <p>
+                 With 3 years of experience as a Web Designer, I have developed user-friendly and visually engaging web pages for e-commerce platforms such as Rakuten and Yahoo. 
+                 My work goes beyond layout design—I create compelling visuals for landing pages, perform photo manipulation, craft marketing materials, and support internal design processes, 
+                 combining creativity with functionality to deliver engaging digital experiences.
+                </p><br />
+                <p>
+                 Over time, I have expanded my expertise to designing interactive prototypes and wireframes using tools like Adobe XD and Figma, translating concepts into intuitive, 
+                    solution-driven interfaces that enhance usability and connect users effectively with brands.
+                </p>
+                <br />
+                <button class="btn primary">Download CV</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio reveal" id="works">
+        <h1 style="text-align: left; font-size: 48px;">Portfolio Picks, <span>Selected Works.</span></h1>
+        <p class="portfolio-subtitle">Selected projects showcasing my design and prototyping work.</p>
+        <div class="portfolio-layout">
+            <div class="portfolio-left">
+                <div class="portfolio-main-card">
+                    <h3>E-Commerce</h3>
+                    <p>Branding, Product</p>
+                    <nav class="portfolio-links">
+                        <a href="#">rakuten.ne.jp/gold/glv/event/pricedown-2024.html</a>
+                        <a href="#">rakuten.ne.jp/gold/glv/event/winter-salepage-rak.html</a>
+                        <a href="#">rakuten.ne.jp/gold/glv/event/autumncamp-rak.html</a>
+                    </nav>
+                    <img src="..\2025\photos\Ecommerce-1.png" alt="Alternate Text" />
+                </div>
+                <p class="portfolio-description">
+                    Projects focus on transforming ideas into functional, user-centered designs. Emphasis on learning new technologies quickly and adapting to deliver innovative, solution-driven results
+                </p>
+            </div>
+            <div class="portfolio-right">
+                <div style="background-color: #313131; width: 100%; object-fit: cover; border-radius: 12px; display: block; padding: 20px; border-radius: 14px; ">
+                    <h3>⚠️ Mature Content Disclaimer</h3><br />
+                    <p style="color: #777777">
+                        These websites and its contents are intended for professional purposes only. Certain materials may include mature themes, visuals, or language that are not suitable for all audiences.
+
+                        All content presented here is part of a professional project and is created solely for informational, educational, or creative demonstration purposes.
+
+                        By accessing this site, you acknowledge that you are 18 years of age or older (or the legal age of majority in your region) and consent to viewing professional content that may contain mature subject matter.
+                    </p>
+                </div>
+                <div class="small-card" data-images="https://via.placeholder.com/800x400/89CFF0/fff?text=UltraPharmRx,https://via.placeholder.com/400x200/89CFF0/fff?text=Thumb1,https://via.placeholder.com/400x200/89CFF0/fff?text=Thumb2">
+                    <h3>UltraPharmRx</h3>
+                    <p>Branding, Product, Wireframe, Prototype</p>
+                    <img src="..\2025\photos\Ecommerce-2.png" alt="UltraPharmRx" style="height:400px;">
+                </div>
+                <div class="small-card" data-images="https://via.placeholder.com/800x400/F4A261/fff?text=Dynasize,https://via.placeholder.com/400x200/F4A261/fff?text=Thumb1,https://via.placeholder.com/400x200/F4A261/fff?text=Thumb2">
+                    <h3>Dynasize</h3>
+                    <p>Branding, Product, Wireframe, Prototype</p>
+                    <img src="..\2025\photos\Ecommerce-3.png" alt="Dynasize" style="height:400px;">
+                </div>
+                <div class="small-card" data-images="https://via.placeholder.com/800x400/E76F51/fff?text=Manix+Prime,https://via.placeholder.com/400x200/E76F51/fff?text=Thumb1,https://via.placeholder.com/400x200/E76F51/fff?text=Thumb2">
+                    <h3>Manix Prime</h3>
+                    <p>Branding, Product, Wireframe, Prototype</p>
+                    <img src="..\2025\photos\Ecommerce-4.png" alt="Manix Prime" style="height:400px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social reveal">
+        <h1 style="font-size:48px;">Social Media <span>Ads</span></h1>
+        <div class="social-grid">
+            <div><img src="..\2025\photos\ads\Ad 1.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 2.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 3.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 4.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 5.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 6.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 7.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 8.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 9.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 10.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 11.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 12.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 13.png" alt="Alternate Text" /></div>
+            <div><img src="..\2025\photos\ads\Ad 14.png" alt="Alternate Text" /></div>
+        </div>
+    </section>
+
+    <section class="skills reveal" id="experience">
+        <h1>Skills & <span>Experience</span></h1><br />
+       
+        <div class="skills-wrapper">
+
+            <!-- Web Development -->
+            <div class="skills-card">
+                <h2>Web Development</h2>
+
+                <div class="skills-grid">
+                    <div class="skills-item">
+                        <p>☑️ <strong>HTML</strong><br>Experienced</p>
+                        <p>☑️ <strong>Javascript</strong><br>Beginner</p>
+                        <p>☑️ <strong>C++</strong><br>Beginner</p>
+                    </div>
+                    <div class="skills-item">
+                        <p>☑️ <strong>CSS</strong><br>Experienced</p>
+                        <p>☑️ <strong>Wordpress</strong><br>Beginner</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Design -->
+            <div class="skills-card">
+                <h2>Web Design</h2>
+
+                <div class="skills-grid">
+                    <p class="skills-item">☑️ <strong>Figma</strong><br>Experienced</p>
+                    <p class="skills-item">☑️ <strong>Adobe XD</strong><br>Experienced</p>
+                </div>
+            </div>
+
+            <!-- Graphics / Video -->
+            <div class="skills-card graphics-card">
+                <h2>Graphics / Video</h2>
+
+                <div class="skills-grid">
+                    <div class="skills-item">
+                        <p>☑️ <strong>Adobe Photoshop</strong><br>Experienced</p>
+                        <p>☑️ <strong>Adobe Illustrator</strong>Experienced</p>
+                        <p>☑️ <strong>Designmodo</strong>Experienced</p>
+                    </div>
+                    <div class="skills-item">
+                        <p>☑️ <strong>Adobe Premiere Pro</strong>Experienced</p>
+                        <p>☑️ <strong>Adobe After Effects</strong>Experienced</p>
+                        <p>☑️ <strong>Davinci Resolve</strong><br>Beginner</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <footer class="contact reveal">
+        © John Carlo Sanchez. All Rights Reserved
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal" id="portfolioModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-left">
+                <div class="modal-inner">
+                    <div class="modal-gallery" id="modalGallery"></div>
+                    <div class="modal-main">
+                        <img id="modalMainImage" src="" alt="Project Main Image">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-right">
+                <h3 class="modal-title"></h3>
+                <p class="modal-description"></p>
+                <div class="modal-tools"></div>
+                <a href="#" target="_blank" class="modal-visit-site">Visit Site</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projects = {
+            "UltraPharmRx": {
+                title: "UltraPharmRx",
+                description: "Designed a clean, user-friendly website for a pharmaceutical company, focusing on clear information hierarchy, responsive layouts, and visually consistent UI. Created wireframes, high-fidelity designs, and web-ready assets to ensure a professional and trustworthy online presence.",
+                tools: ["Figma", "Adobe Photoshop", "Adobe Illustrator"],
+                visitUrl: "#",
+                images: [
+                    "../2025/photos/uprx/uprx-1.png",
+                    "../2025/photos/uprx/uprx-2.png",
+                    "../2025/photos/uprx/uprx-3.png",
+                    "../2025/photos/uprx/uprx-4.png",
+                    "../2025/photos/uprx/uprx-5.png"
+                ]
+            },
+            "Dynasize": {
+                title: "Dynasize",
+                description: "A comprehensive branding and product design project including wireframes and prototypes to enhance user engagement and visual appeal.",
+                tools: ["Figma", "Sketch", "Adobe Photoshop"],
+                visitUrl: "#",
+                images: [
+                    "../2025/photos/dyna/dyna-1.png",
+                    "../2025/photos/dyna/dyna-2.png",
+                    "../2025/photos/dyna/dyna-3.png",
+                    "../2025/photos/dyna/dyna-4.png",
+                    "../2025/photos/dyna/dyna-5.png"
+                ]
+            },
+            "ManixPrime": {
+                title: "Manix Prime",
+                description: "Focused on branding, product design, wireframing, and prototyping to deliver high-quality, user-centric solutions.",
+                tools: ["Adobe Illustrator", "Figma", "Adobe XD"],
+                visitUrl: "#",
+                images: [
+                    "../2025/photos/manix/manix-1.png",
+                    "../2025/photos/manix/manix-2.png",
+                    "../2025/photos/manix/manix-3.png",
+                    "../2025/photos/manix/manix-4.png",
+                    "../2025/photos/manix/manix-5.png"
+                ]
+            }
+        };
+
+        const modal = document.getElementById('portfolioModal');
+        const modalMainImage = document.getElementById('modalMainImage');
+        const modalGallery = document.getElementById('modalGallery');
+        const modalTitle = modal.querySelector('.modal-title');
+        const modalDescription = modal.querySelector('.modal-description');
+        const modalTools = modal.querySelector('.modal-tools');
+        const modalVisit = modal.querySelector('.modal-visit-site');
+        const modalClose = modal.querySelector('.modal-close');
+
+        document.querySelectorAll('.small-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const projectName = card.querySelector('h3').textContent.replace(/\s/g, '');
+                const project = projects[projectName];
+                if (!project) return;
+
+                modal.classList.add('show');
+                modalTitle.textContent = project.title;
+                modalDescription.textContent = project.description;
+                modalTools.innerHTML = '';
+                project.tools.forEach(tool => {
+                    const span = document.createElement('span');
+                    span.textContent = tool;
+                    modalTools.appendChild(span);
+                });
+                modalVisit.href = project.visitUrl;
+
+                modalGallery.innerHTML = '';
+                project.images.forEach((imgSrc, index) => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    if (index === 0) img.classList.add('active');
+                    img.addEventListener('click', () => {
+                        modalMainImage.src = imgSrc;
+                        modalGallery.querySelectorAll('img').forEach(i => i.classList.remove('active'));
+                        img.classList.add('active');
+                    });
+                    modalGallery.appendChild(img);
+                });
+                modalMainImage.src = project.images[0];
+            });
+        });
+
+        modalClose.addEventListener('click', () => modal.classList.remove('show'));
+        window.addEventListener('click', e => {
+            if (e.target === modal) modal.classList.remove('show');
+        });
+
+        // Reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        window.addEventListener('scroll', () => {
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let revealTop = reveals[i].getBoundingClientRect().top;
+                let revealPoint = 150;
+                if (revealTop < windowHeight - revealPoint) {
+                    reveals[i].classList.add('active');
+                } else {
+                    reveals[i].classList.remove('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
